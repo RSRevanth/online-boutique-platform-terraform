@@ -2,7 +2,7 @@
 terraform {
   
   backend "s3" {
-    bucket         = "terra-s3-state-lock"
+    bucket         = "terra-tif-s3-state-lock"
     key            = "platform/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = false
