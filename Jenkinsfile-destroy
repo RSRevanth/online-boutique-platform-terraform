@@ -3,9 +3,9 @@ pipeline {
     agent any
     
     environment {
-        AWS_DEFAULT_REGION="us-east-1"
+        AWS_DEFAULT_REGION = "us-east-1"
         // "aws-creds" is the ID of the Jenkins Credential holding your AWS Credentials. Install AWS Credentials Plugin
-        AWS_CREDS=credentials('aws-creds')
+        AWS_CREDS = credentials('aws-creds')
     }
 
     stages {
@@ -36,7 +36,7 @@ pipeline {
         stage('Destroying S3-DynamoDB') {
             steps {
                 // Make sure the name "online-boutique-platform-terraform-create" in below path match the Jenkins job name for creating the AWS Platform uisng terraform.
-                dir('/var/lib/jenkins/workspace/online-boutique-platform-terraform-create/s3-dynamodb') {
+                dir('/var/lib/jenkins/workspace/TIF DevOps Dynamics/s3-dynamodb') {
                     sh 'terraform destroy -auto-approve'
                 }
             }

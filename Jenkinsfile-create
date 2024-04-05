@@ -2,16 +2,21 @@ pipeline {
     agent any
     
     environment {
-        AWS_DEFAULT_REGION="us-east-1"
-        // "aws-creds" is the ID of the Jenkins Credential holding your AWS Credentials. Install AWS Credentials Plugin 
-        AWS_CREDS=credentials('aws-creds')
+        AWS_DEFAULT_REGION = "us-east-1"
+        AWS_CREDS = credentials('aws-creds')
         AWS_EKS_CLUSTER_NAME = ""
     }
 
     stages {
+        
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        
         stage('Git Checkout') {
             steps {
-                // "git-creds" is the ID of the Jenkins Credential holding your GitHub Credentials
                 git branch: 'feature', credentialsId: 'git-creds', url: 'https://github.com/TechITFactoryb01/online-boutique-platform-terraform.git'
             }
         }
@@ -24,7 +29,6 @@ pipeline {
                     terraform validate
                     terraform plan
                     terraform apply -auto-approve
-                    
                     '''
                 }
             }
@@ -37,6 +41,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Validating Terraform Configuration') {
             steps {
               dir('dev') {
@@ -44,6 +49,7 @@ pipeline {
               }
             }
         }
+        
         stage('Planning for Platform Creation') {
             steps {
                 dir('dev') {
@@ -51,6 +57,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Creating Platform') {
             steps {
                 dir('dev') {
