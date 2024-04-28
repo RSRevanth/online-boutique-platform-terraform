@@ -17,7 +17,7 @@ pipeline {
         
         stage('Git Checkout') {
             steps {
-                git branch: 'feature', credentialsId: 'git-creds', url: 'https://github.com/TechITFactoryb01/online-boutique-platform-terraform.git'
+                git branch: 'feature', credentialsId: 'git-creds', url: 'https://github.com/RSRevanth/online-boutique-platform-terraform.git'
             }
         }
         
